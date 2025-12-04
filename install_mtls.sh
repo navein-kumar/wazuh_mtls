@@ -28,7 +28,7 @@ openssl pkcs12 -export -out client.p12 \
   -passout pass:wazuh123
 
 # Mount ca.pem to NPM container
-docker cp ca.pem nginxproxymanager:/opt/ca.pem
+docker cp ca.pem nginxproxy:/data/ca.pem
 cp ca.pem /root/ngingxprxy/data
 
 ## NPM Advanced config 
