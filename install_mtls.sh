@@ -3,7 +3,7 @@
 # Simple mTLS setup for NPM - Based on olokelo/mtls guide
 # Domain: wazuh.domain.com
 
-DOMAIN="wazuh.wincloudpms.net"
+DOMAIN="wazuh.domain.net"
 
 # Create certificates
 mkdir -p certs && cd certs
