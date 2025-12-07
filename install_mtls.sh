@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Simple mTLS setup for NPM - Based on olokelo/mtls guide
-# Domain: wazuh.wincloudpms.net
+# Domain: wazuh.domain.com
 
 DOMAIN="wazuh.wincloudpms.net"
 
