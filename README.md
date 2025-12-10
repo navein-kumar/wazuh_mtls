@@ -1,9 +1,22 @@
 ```
-#Exclude config
+# Option 1: Enforce all path/folder  mtls
 
- #Exclude all webhooks from mTLS (allow any IP)
+ssl_client_certificate /data/ca.pem;
+ssl_verify_client on;
+```
+
+```
+# option 2: exclude fr webhooks 
 ssl_verify_client optional;
 ssl_client_certificate /data/ca.pem;
+
+# Custom error page
+error_page 400 @mtls_error;
+
+location @mtls_error {
+    return 400 '{"error":"Certificate Required","message":"Contact SOC team for access","email":"soc@codesecuresolutions.com"}';
+    add_header Content-Type application/json;
+}
 
 # Exclude all webhooks from mTLS
 location /webhook/ {
