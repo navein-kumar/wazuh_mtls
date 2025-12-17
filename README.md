@@ -10,24 +10,28 @@ ssl_verify_client on;
 ssl_verify_client optional;
 ssl_client_certificate /data/ca.pem;
 
-# Exclude all webhooks from mTLS
 location /webhook/ {
     proxy_pass http://n8n:5678;
+    proxy_http_version 1.1;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
 }
 
-# Everything else requires valid certificate
 location / {
     if ($ssl_client_verify != "SUCCESS") {
         return 495;
     }
     proxy_pass http://n8n:5678;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_read_timeout 86400;
+    proxy_send_timeout 86400;
 }
 ```
